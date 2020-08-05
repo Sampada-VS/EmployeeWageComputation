@@ -3,10 +3,14 @@ IS_PART_TIME=1
 IS_FULL_TIME=2
 RATE_PER_HOUR=20
 NUM_OF_WORKING_DAYS=20
-emp_month_wage=0
+MAX_HOURS=100
 
-for (( day=1; day<=$NUM_OF_WORKING_DAYS; day++ ))
+total_emp_hrs=0
+total_working_days=0
+
+while [[ $total_emp_hrs -lt $MAX_HOURS && $total_working_days -lt $NUM_OF_WORKI>
 do
+        ((total_working_days++))
         emp_check=$((RANDOM%3))
         case $emp_check in
                 $IS_PART_TIME)
@@ -19,6 +23,6 @@ do
                         emp_hours=0
                         ;;
         esac
-        emp_daily_wage=$(($RATE_PER_HOUR*$emp_hours))
-        emp_month_wage=$(($emp_month_wage+$emp_daily_wage))
+        total_emp_hrs=$(($total_emp_hrs+$emp_hours))
 done
+emp_wage=$(($total_emp_hrs*$RATE_PER_HOUR))
