@@ -8,6 +8,14 @@ MAX_HOURS=100
 total_emp_hrs=0
 total_working_days=0
 
+declare -A dailyWage
+
+function getDailyWage(){
+	local emp_hrs=$1
+	emp_salary=$(($emp_hrs*$RATE_PER_HOUR))
+	echo $emp_salary
+}
+
 function getEmpHours(){
 	case $emp_check in
 		$IS_PART_TIME)
@@ -29,7 +37,9 @@ do
 	emp_check=$((RANDOM%3))
 	emp_hours=$( getEmpHours $emp_check )
 	total_emp_hrs=$(($total_emp_hrs+$emp_hours))
-	dailyWage[total_working_days]="$( getDailyWage $emp_hours )"
+	dailyWage["Day"$total_working_days]="$( getDailyWage $emp_hours )"
 done
-emp_wage=$(($total_emp_hrs*$RATE_PER_HOUR))
+emp_wage="$( getDailyWage $total_emp_hrs )"
+
 echo "Daily Wage " ${dailyWage[@]}
+echo "All days " ${!dailyWage[@]}
