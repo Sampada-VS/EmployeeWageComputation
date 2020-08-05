@@ -1,3 +1,10 @@
 #!/bin/bash -x
+IS_PRESENT=1
+emp_check=$((RANDOM%2))
 
-echo "Welcome to Employee wage Computation"
+if [ $IS_PRESENT -eq $emp_check ]
+then
+        echo "Employee is present."
+else
+        echo "Employee is absent."
+fi
